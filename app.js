@@ -1,27 +1,52 @@
-var votes = [
-    'angular',
-    'angular',
-    'react',
-    'react',
-    'react',
-    'angular',
-    'ember',
-    'react',
-    'vanilla'
-];
+var data = [1, 2, 3];
 
-var initialValue = {};
+var doubled = data.reduce((acc, value) => {
+    acc.push(value * 2);
 
-var reducer = function(tally, vote) {
-    if(!tally[vote]) {
-        tally[vote] = 1;
-    } else {
-        tally[vote] += 1;
+    return acc;
+}, []);
+
+var doubleMapped = data.map( item => {
+    return item * 2;
+})
+
+var data2 = [1, 2, 3, 4, 5, 6];
+var evens = data2.reduce((acc,value) => {
+    if(value % 2 === 0) {
+        acc.push(value);
     }
 
-    return tally;
+    return acc;
+}, []);
+
+var evenFiltered = data2.filter(item => {
+    return item % 2 === 0;
+})
+
+var filterMapped = data2.filter(value => {
+    return value % 2 === 0;
+}).map(value => {
+    return value * 2;
+})
+
+var bigData = [];
+for(var i = 0; i < 1000000; i++) {
+    bigData[i] = i;
 }
 
-var result = votes.reduce(reducer, initialValue);
+console.time('bigData');
+var filterMappedBigData = bigData.filter(value => {
+    return value % 2 === 0;
+}).map(value => {
+    return value * 2;
+})
+console.timeEnd('bigData');
 
-console.log(result);
+console.time('bigDataReduce');
+var reducedBigData = bigData.reduce((acc,value) => {
+    if(value % 2 === 0) {
+        acc.push(value*2);
+    }
+    return acc;
+},[])
+console.timeEnd('bigDataReduce');
