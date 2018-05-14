@@ -1,12 +1,12 @@
-function reducer(acc, value, index, array) {
-    var intermediaryValue = acc + value;
-    if(index === array.length-1) {
-        return intermediaryValue/array.length;
-    }
-    return intermediaryValue;
+var data = ['vote1', 'vote2', 'vote1', 'vote2'];
+
+function reducer(accumulator, value) {
+    if(accumulator[value]) accumulator[value] += 1;
+    else accumulator[value] = 1;
+
+    return accumulator;
 }
 
-var data = [1, 2, 3, 3, 4, 5, 3, 1];
-var mean = data.reduce(reducer, 0);
+var tally = data.reduce(reducer, {});
 
-console.log(mean);
+console.log(tally);
